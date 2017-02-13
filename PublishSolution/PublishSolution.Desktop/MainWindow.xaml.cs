@@ -27,17 +27,17 @@ namespace PublishSolution.Desktop
 
         private async void CopyButton_Click(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show("コピーを開始しますか？") == MessageBoxResult.OK)
+            
+            if (this.data.IsValid)
             {
-
                 try
                 {
                     await Solution.CopyAsync(this.data);
-                    MessageBox.Show("完了");
+                    MessageBox.Show("Done.", "Publish Solution", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("ERROR " + ex.Message);
+                    MessageBox.Show("ERROR " + ex.Message, "Publish Solution", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 }
             } // end if
         } // end sub
@@ -46,7 +46,7 @@ namespace PublishSolution.Desktop
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            this.data = new CopySolutionSettings { ToFolder = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) };
+            this.data = new CopySolutionSettings();
             this.DataContext = this.data;
         }
 

@@ -5,23 +5,32 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PublishSolution.Desktop"
         mc:Ignorable="d"
-        Title="Publish Solution (Desktop)" Height="160" Width="360"
+        Title="Publish Solution (Desktop)" Height="200" Width="360"
         Loaded="Window_Loaded">
+    <Window.Resources>
+        <ControlTemplate x:Key="ValidationTemplate">
+            <StackPanel Orientation="Horizontal">
+                <AdornedElementPlaceholder x:Name="placeholder" />
+                <TextBlock Text="{Binding AdornedElement.(Validation.Errors)[0].ErrorContent, ElementName=placeholder}" Foreground="Red"  Margin="-200,30,0,0"/>
+            </StackPanel>
+        </ControlTemplate>
+    </Window.Resources>
+    
     <StackPanel Margin="5 5 5 5">
-        <StackPanel Orientation="Horizontal" Height="30" Margin="0 0 0 10">
+        <StackPanel Orientation="Horizontal" Height="30" Margin="0 0 0 24">
             <TextBlock  Text="From Folder" Width="100" />
-            <TextBox x:Name="FromBox" Width="200" Text="{Binding FromFolder}"/>
+            <TextBox x:Name="FromBox" Width="200" Text="{Binding FromFolder}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
             <Button x:Name="FromButton" Content="..." Width="30" Click="FromButton_Click" />
         </StackPanel>
 
-        <StackPanel Orientation="Horizontal" Height="30" Margin="0 0 0 10">
+        <StackPanel Orientation="Horizontal" Height="30" Margin="0 0 0 24">
             <TextBlock Text="To Folder" Width="100" />
-            <TextBox x:Name="ToBox" Width="200" Text="{Binding ToFolder}"/>
+            <TextBox x:Name="ToBox" Width="200" Text="{Binding ToFolder}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
             <Button x:Name="ToButton" Content="..." Width="30" Click="ToButton_Click" />
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Height="30" Margin="0 0 0 10">
-            <Button x:Name="CopyButton" Content="Copy" Width="200" Click="CopyButton_Click"/>
+            <Button x:Name="CopyButton" Content="Copy" Width="200" Click="CopyButton_Click" IsEnabled="{Binding IsValid}"/>
         </StackPanel>
 
     </StackPanel>

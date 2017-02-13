@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +9,12 @@ namespace PublishSolution
 {
     public class CopySolutionSettings : ViewModelBase
     {
+        public CopySolutionSettings()
+        {
+            this.FromFolder = null;
+            this.ToFolder = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+        }
+
         /// <summary>
         /// Backing field of FromFolder property.
         /// </summary>
@@ -16,6 +23,7 @@ namespace PublishSolution
         /// <summary>
         /// Gets or sets folder path to copy from.
         /// </summary>
+        [Required]
         public String FromFolder
         {
             get
@@ -33,9 +41,11 @@ namespace PublishSolution
         /// </summary>
         private String valueOfToFolder;
 
+
         /// <summary>
         /// Gets or sets folder path to copy to.
         /// </summary>
+        [Required]
         public String ToFolder
         {
             get
@@ -46,6 +56,6 @@ namespace PublishSolution
             {
                 this.SetProperty(ref this.valueOfToFolder, value);
             } // end set
-        } // end property
+        } // end property 
     }
 }
